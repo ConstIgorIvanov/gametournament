@@ -1,17 +1,15 @@
 import * as cheerio from 'cheerio'
 import { v4 as uuidv4 } from 'uuid'
-import { Time } from './config'
+import { Time } from './shared/Time'
 
 export const fetchPage = async (
   url: string,
-  page: string,
-  time: Time,
-  loadPage: (url: string, page: string, time: Time) => Promise<string>
+  loadPage: (url: string, page: string, time: Time) => Promise<string>,
+  page?: string,
+  time?: Time
 ): Promise<cheerio.Root> => {
-  const root = cheerio.load(await loadPage(url, page, time))
-
+  const root = cheerio.load(await loadPage(url, page || '1', time || 'current'))
   const html = root.html()
-
   if (
     html.includes('error code:') ||
     html.includes('Sorry, you have been blocked') ||

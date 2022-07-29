@@ -11,6 +11,7 @@ Table of contents
 - [Usage](#usage)
 - [API](#api)
   - [getMatches](#getmatches)
+  - [getTournamentsMatches](#getTournamentsMatches)
 
 ## Installation
 
@@ -26,21 +27,33 @@ import GAMETOURNAMENTS from 'gametournaments'
 
 #### getMatches
 
-Parses all matches from the `https://game-tournaments.com/dota-2` page (1 request)
+Parses all matches from the `https://game-tournaments.com/dota-2` page
 
-|   Option   |  Type   | Default Value |                          Description                           |
-| :--------: | :-----: | :-----------: | :------------------------------------------------------------: |
-|    page    | number? |       -       |                  Filter matches by event ID.                   |
-|    time    |  Time?  |       -       |                 Filter matches by event type.                  |
-| tournament | string? |       -       | Filter matches by pre-set categories. Overrides other filters. |
+| Option |  Type   | Default Value |             Description              |
+| :----: | :-----: | :-----------: | :----------------------------------: |
+|  page  | number? |       -       |                 Page                 |
+|  time  |  Time?  |       -       | Filter matches by time(past/current) |
 
-enum Time {
-past = 'past',
-current = 'current'
-}
+type Time = "past" | "current"
 
 ```javascript
-HLTV.getMatches({}).then((res) => {
+HLTV.getMatches({page: '2'}).then((res) => {
   ...
 })
 ```
+
+#### getTournamentsMatches
+
+Parses all matches from the `https://game-tournaments.com/dota-2/${tournament}` page
+
+|   Option   |  Type   | Default Value |                   Description                    |
+| :--------: | :-----: | :-----------: | :----------------------------------------------: |
+| tournament | string? |       -       | Check mathches by tournaments (past and current) |
+
+```javascript
+HLTV.getTournamentsMatches({ tournament: 'esl-one-malaysia-2022/north-america' }).then((res) => {
+  ...
+})
+```
+
+tournamentlink for search by tournament stored in Match.event.tournamentLink

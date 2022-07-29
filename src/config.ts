@@ -1,15 +1,11 @@
 import { Agent as HttpsAgent } from 'https'
 import { Agent as HttpAgent } from 'http'
 import * as request from 'request'
+import { Time } from './shared/Time'
 
 export interface GameTournamentsConfig {
   loadPage: (url: string, page: string, time: Time) => Promise<string>
   httpAgent: HttpsAgent | HttpAgent
-}
-
-export enum Time {
-  past = 'past',
-  current = 'current'
 }
 
 export const defaultLoadPage =
@@ -32,16 +28,14 @@ export const defaultLoadPage =
             'sec-fetch-site': 'same-origin',
             'x-requested-with': 'XMLHttpRequest'
           },
-          method: 'POST',
           gzip: true,
           agent: httpAgent,
-          body: `game=dota-2&rid=matches&ajax=block_matches_${time}&data%5Bs%5D=${page}&data%5Btype%5D=gg&data%5Bscore%5D=0`
+          body: `game=dota-2&rid=matches&ajax=block_matches_${time}&data%5Bs%5D=${page}`
         },
         (err, __, body) => {
           if (err) {
             throw err
           }
-
           resolve(body)
         }
       )

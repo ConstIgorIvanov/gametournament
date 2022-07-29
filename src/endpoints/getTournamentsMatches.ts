@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { GameTournamentsConfig } from '../config'
 import { GameTournamentsScraper } from '../scraper'
 import { Team } from '../shared/Team'
@@ -21,19 +20,13 @@ export type MatchPreview = {
   live: boolean
   score?: string
 } | null
-export const getMatches =
+export const getTournamentsMatches =
   (config: GameTournamentsConfig) =>
-  async ({
-    page,
-    time,
-    tournament
-  }: GetMatchesArguments): Promise<MatchPreview[]> => {
+  async ({ tournament }: GetMatchesArguments): Promise<MatchPreview[]> => {
     const $ = GameTournamentsScraper(
       await fetchPage(
         `https://game-tournaments.com/dota-2/${tournament}`,
-        config.loadPage,
-        page || '1',
-        time || 'current'
+        config.loadPage
       )
     )
 
@@ -42,7 +35,6 @@ export const getMatches =
       .map((el) => {
         if (el.attr('rel')) {
           const id = el.attr('rel')
-
           const data = el.find('span .sct').attr('data-time')
           const live = data ? false : true
           const event = {
