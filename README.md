@@ -31,7 +31,7 @@ Parses all matches from the `https://game-tournaments.com/dota-2` page
 
 | Option |  Type   | Default Value |             Description              |
 | :----: | :-----: | :-----------: | :----------------------------------: |
-|  page  | number? |       -       |                 Page                 |
+|  page  | string? |       -       |                 Page                 |
 |  time  |  Time?  |       -       | Filter matches by time(past/current) |
 
 type Time = "past" | "current"
