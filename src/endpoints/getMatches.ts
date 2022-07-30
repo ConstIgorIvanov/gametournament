@@ -1,28 +1,16 @@
-import { stringify } from 'querystring'
 import { GameTournamentsConfig } from '../config'
 import { GameTournamentsScraper } from '../scraper'
-import { Team } from '../shared/Team'
-import { Event } from '../shared/Event'
 import { fetchPage } from '../utils'
 import { Time } from '../shared/Time'
 import { Game } from '../shared/Game'
-
+import { MatchPreview } from '../shared/MatchPreview'
 export interface GetMatchesArguments {
   game: Game
   time?: Time
   page?: string
   tournament?: string
 }
-export type MatchPreview = {
-  id: string
-  game: string
-  live: boolean
-  team1?: Team
-  team2?: Team
-  date?: string
-  event?: Event
-  score?: string
-} | null
+
 export const getMatches =
   (config: GameTournamentsConfig) =>
   async ({
@@ -71,9 +59,16 @@ export const getMatches =
             name: el.find('span .teamname.c2 b').text(),
             odds: el.find('.bet-percentage.bet2').text()
           }
-
+          let link = el
+            .find('.mlink')
+            .attr('href')
+            .replace('/dota-2/', '')
+            .replace('/csgo/', '')
+            .replace('/hearthstone/', '')
+            .replace('/lol/', '')
+            .replace('/overwatch/', '')
           let score = el.find('.mbutton.tresult').attr('data-score')
-          return { id, live, date, game, event, team1, team2, score }
+          return { id, live, date, game, event, team1, team2, link, score }
         } else {
           return null
         }

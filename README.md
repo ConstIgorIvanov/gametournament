@@ -27,16 +27,17 @@ import GAMETOURNAMENTS from 'gametournaments'
 
 Match
 
-| Option |  Type   | Default Value |              Description              |
-| :----: | :-----: | :-----------: | :-----------------------------------: |
-|   id   | string  |       -       |                  id                   |
-|  game  | string  |       -       | csgo/dota-2/lol/overwatch/hearthstone |
-|  live  | boolean |       -       |       The game is on right now        |
-| team1  |  Team?  |       -       |            Left team name             |
-| team2  |  Team?  |       -       |            Right team name            |
-|  date  | string? |       -       |            Time game start            |
-| event  | Event?  |       -       |              Event info               |
-| score  | string? |       -       |         Left-Right team score         |
+| Option |  Type   | Default Value |                  Description                   |
+| :----: | :-----: | :-----------: | :--------------------------------------------: |
+|   id   | string  |       -       |                       id                       |
+|  game  | string  |       -       |     csgo/dota-2/lol/overwatch/hearthstone      |
+|  live  | boolean |       -       |            The game is on right now            |
+| team1  |  Team?  |       -       |                 Left team name                 |
+| team2  |  Team?  |       -       |                Right team name                 |
+|  date  | string? |       -       |                Time game start                 |
+| event  | Event?  |       -       |                   Event info                   |
+| score  | string? |       -       |             Left-Right team score              |
+|  link  | string? |       -       | not-full tournament link for use with getMatch |
 
 Team
 

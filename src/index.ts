@@ -18,6 +18,7 @@ export class GameTournaments {
   }
 
   getMatches = getMatches(this.config as GameTournamentsConfig)
+
   getTournamentsMatches = getTournamentsMatches(
     tournamentsConfig as GameTournamentsConfig
   )
@@ -30,4 +31,12 @@ const gametournaments = new GameTournaments()
 
 export default gametournaments
 export { gametournaments as GAMETOURNAMENTS }
-export type { MatchPreview, GetMatchesArguments } from './endpoints/getMatches'
+
+export type { GetMatchesArguments } from './endpoints/getMatches'
+export type { GetTournamentsMatchesArguments } from './endpoints/getTournamentsMatches'
+
+export type { Event } from './shared/Event'
+export type { Game } from './shared/Game'
+export type { Team } from './shared/Team'
+export type { Time } from './shared/Time'
+export type { MatchPreview } from './shared/MatchPreview'
