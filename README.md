@@ -25,19 +25,48 @@ import GAMETOURNAMENTS from 'gametournaments'
 
 ## API
 
+Match
+
+| Option |  Type   | Default Value |              Description              |
+| :----: | :-----: | :-----------: | :-----------------------------------: |
+|   id   | string  |       -       |                  id                   |
+|  game  | string  |       -       | csgo/dota-2/lol/overwatch/hearthstone |
+|  live  | boolean |       -       |       The game is on right now        |
+| team1  |  Team?  |       -       |            Left team name             |
+| team2  |  Team?  |       -       |            Right team name            |
+|  date  | string? |       -       |            Time game start            |
+| event  | Event?  |       -       |              Event info               |
+| score  | string? |       -       |         Left-Right team score         |
+
+Team
+
+| Option |  Type  | Default Value | Description |
+| :----: | :----: | :-----------: | :---------: |
+|  name  | string |       -       |      -      |
+|  odds  | string |       -       |      -      |
+
+Event
+
+|     Option     |  Type  | Default Value |                         Description                         |
+| :------------: | :----: | :-----------: | :---------------------------------------------------------: |
+|      name      | string |       -       |                              -                              |
+| tournamentLink | string |       -       | not-full tournament link for use with getTournamentsMatches |
+|      logo      | string |       -       |                              -                              |
+
 #### getMatches
 
 Parses all matches from the `https://game-tournaments.com/dota-2` page
 
-| Option |  Type   | Default Value |             Description              |
-| :----: | :-----: | :-----------: | :----------------------------------: |
-|  page  | number? |       -       |                 Page                 |
-|  time  |  Time?  |       -       | Filter matches by time(past/current) |
+| Option |  Type   | Default Value |              Description              |
+| :----: | :-----: | :-----------: | :-----------------------------------: |
+|  game  | string  |       -       | csgo/dota-2/lol/overwatch/hearthstone |
+|  page  | number? |       -       |                 Page                  |
+|  time  |  Time?  |       -       | Filter matches by time(past/current)  |
 
 type Time = "past" | "current"
 
 ```javascript
-HLTV.getMatches({page: '2'}).then((res) => {
+GAMETOURNAMENTS.getMatches({game: 'dota-2', page: '2'}).then((res) => {
   ...
 })
 ```
@@ -48,10 +77,11 @@ Parses all matches from the `https://game-tournaments.com/dota-2/${tournament}` 
 
 |   Option   |  Type   | Default Value |                   Description                    |
 | :--------: | :-----: | :-----------: | :----------------------------------------------: |
+|    game    | string  |       -       |      csgo/dota-2/lol/overwatch/hearthstone       |
 | tournament | string? |       -       | Check mathches by tournaments (past and current) |
 
 ```javascript
-HLTV.getTournamentsMatches({ tournament: 'esl-one-malaysia-2022/north-america' }).then((res) => {
+GAMETOURNAMENTS.getTournamentsMatches({ game: 'dota-2', tournament: 'esl-one-malaysia-2022/north-america' }).then((res) => {
   ...
 })
 ```

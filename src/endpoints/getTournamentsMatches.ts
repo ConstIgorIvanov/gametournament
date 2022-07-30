@@ -4,29 +4,33 @@ import { Team } from '../shared/Team'
 import { Event } from '../shared/Event'
 import { fetchPage } from '../utils'
 import { Time } from '../shared/Time'
+import { Game } from '../shared/Game'
 
 export interface GetMatchesArguments {
-  time?: Time
-  page?: string
+  game: Game
   tournament?: string
 }
 export type MatchPreview = {
   id: string
+  live: boolean
+  game: string
   team1?: Team
   team2?: Team
-  date?: number
-  format?: string
+  date?: string
   event?: Event
-  live: boolean
   score?: string
 } | null
 export const getTournamentsMatches =
   (config: GameTournamentsConfig) =>
-  async ({ tournament }: GetMatchesArguments): Promise<MatchPreview[]> => {
+  async ({
+    tournament,
+    game
+  }: GetMatchesArguments): Promise<MatchPreview[]> => {
     const $ = GameTournamentsScraper(
       await fetchPage(
-        `https://game-tournaments.com/dota-2/${tournament}`,
-        config.loadPage
+        `https://game-tournaments.com/${game}/${tournament}`,
+        config.loadPage,
+        game
       )
     )
 
@@ -35,14 +39,20 @@ export const getTournamentsMatches =
       .map((el) => {
         if (el.attr('rel')) {
           const id = el.attr('rel')
-          const data = el.find('span .sct').attr('data-time')
-          const live = data ? false : true
+          const date = el.find('span .sct').attr('data-time')
+          const live = date ? false : true
+          const game = el.find('.ta.odtip').attr('href').split('/')[1]
           const event = {
             name: el.find('.ta.odtip').attr('title'),
             tournamentLink: el
               .find('.ta.odtip')
               .attr('href')
-              .replace('/dota-2/', ''),
+              .replace('/dota-2/', '')
+              .replace('/dota-2/', '')
+              .replace('/csgo/', '')
+              .replace('/hearthstone/', '')
+              .replace('/lol/', '')
+              .replace('/overwatch/', ''),
             logo:
               'https://game-tournaments.com' +
               el.find('.tournament-icon img').attr('src')
@@ -57,7 +67,7 @@ export const getTournamentsMatches =
           }
 
           let score = el.find('.mbutton.tresult').attr('data-score')
-          return { id, live, data, event, team1, team2, score }
+          return { id, live, date, game, event, team1, team2, score }
         } else {
           return null
         }

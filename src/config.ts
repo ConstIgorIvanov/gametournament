@@ -4,13 +4,18 @@ import * as request from 'request'
 import { Time } from './shared/Time'
 
 export interface GameTournamentsConfig {
-  loadPage: (url: string, page: string, time: Time) => Promise<string>
+  loadPage: (
+    url: string,
+    page: string,
+    game: string,
+    time: Time
+  ) => Promise<string>
   httpAgent: HttpsAgent | HttpAgent
 }
 
 export const defaultLoadPage =
   (httpAgent: HttpsAgent | HttpAgent | undefined) =>
-  (url: string, page: string, time: Time) =>
+  (url: string, page: string, game: string, time: Time) =>
     new Promise<string>((resolve) => {
       request.post(
         url,
@@ -30,7 +35,7 @@ export const defaultLoadPage =
           },
           gzip: true,
           agent: httpAgent,
-          body: `game=dota-2&rid=matches&ajax=block_matches_${time}&data%5Bs%5D=${page}`
+          body: `game=${game}&rid=matches&ajax=block_matches_${time}&data%5Bs%5D=${page}`
         },
         (err, __, body) => {
           if (err) {

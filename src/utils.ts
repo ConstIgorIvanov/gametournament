@@ -1,14 +1,22 @@
 import * as cheerio from 'cheerio'
 import { v4 as uuidv4 } from 'uuid'
 import { Time } from './shared/Time'
-
+import { Game } from './shared/Game'
 export const fetchPage = async (
   url: string,
-  loadPage: (url: string, page: string, time: Time) => Promise<string>,
+  loadPage: (
+    url: string,
+    page: string,
+    game: Game,
+    time: Time
+  ) => Promise<string>,
+  game: Game,
   page?: string,
   time?: Time
 ): Promise<cheerio.Root> => {
-  const root = cheerio.load(await loadPage(url, page || '1', time || 'current'))
+  const root = cheerio.load(
+    await loadPage(url, page || '1', game || 'dota-2', time || 'current')
+  )
   const html = root.html()
   if (
     html.includes('error code:') ||
