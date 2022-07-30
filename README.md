@@ -37,7 +37,7 @@ Parses all matches from the `https://game-tournaments.com/dota-2` page
 type Time = "past" | "current"
 
 ```javascript
-HLTV.getMatches({page: '2'}).then((res) => {
+GAMETOURNAMENTS.getMatches({page: '2'}).then((res) => {
   ...
 })
 ```
@@ -51,7 +51,7 @@ Parses all matches from the `https://game-tournaments.com/dota-2/${tournament}` 
 | tournament | string? |       -       | Check mathches by tournaments (past and current) |
 
 ```javascript
-HLTV.getTournamentsMatches({ tournament: 'esl-one-malaysia-2022/north-america' }).then((res) => {
+GAMETOURNAMENTS.getTournamentsMatches({ tournament: 'esl-one-malaysia-2022/north-america' }).then((res) => {
   ...
 })
 ```
