@@ -141,3 +141,30 @@ GAMETOURNAMENTS.getMatch({
 matchlink for search by tournament stored in Match.link
 
 #### getTeam
+
+|    Option    |               Type                | Default Value | Description |
+| :----------: | :-------------------------------: | :-----------: | :---------: |
+|     name     |              string               |       -       |      -      |
+|   teamLogo   |              string               |       -       |      -      |
+|   players    |             Player[]              |       -       |      -      |
+|   matches    |          MatchPreview[]           |       -       |      -      |
+|    region    |   {name: string, place: string}   |       -       |      -      |
+| placeinWorld |              string               |       -       |      -      |
+|     form     |              string               |       -       |      -      |
+|    rating    | {win: string, percentage: string} |       -       |      -      |
+
+|  Option  |  Type  | Default Value |              Description              |
+| :------: | :----: | :-----------: | :-----------------------------------: |
+|   game   |  Game  |       -       | csgo/dota-2/lol/overwatch/hearthstone |
+| teamlink | string |       -       |                   -                   |
+|   lang   | Lang?  |       -       |               'en.'/''                |
+
+```javascript
+GAMETOURNAMENTS.getTeam({
+    game: 'dota-2',
+    teamlink: 'team/og',
+    lang: 'en.'
+  }).then((res) => {
+  ...
+})
+```
