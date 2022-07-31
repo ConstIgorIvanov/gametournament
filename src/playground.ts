@@ -14,10 +14,10 @@ const log = (promise: Promise<any>) =>
 //   })
 // )
 
-// log(
-//   GAMETOURNAMENTS.getMatch({
-//     game: 'dota-2',
-//     matchlink:
-//       'moon-studio-asian-tigers-3/group-stage/mist-walker-vs-gorilla-468136'
-//   })
-// )
+log(
+  GAMETOURNAMENTS.getMatch({
+    game: 'dota-2',
+    matchlink:
+      'moon-studio-asian-tigers-3/group-stage/mist-walker-vs-gorilla-468136'
+  })
+)

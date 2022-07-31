@@ -56,7 +56,7 @@ Event
 
 #### getMatches
 
-Parses all matches from the `https://game-tournaments.com/dota-2` page
+Parses all matches from the `https://game-tournaments.com/${game}` page
 
 | Option |  Type   | Default Value |              Description              |
 | :----: | :-----: | :-----------: | :-----------------------------------: |
@@ -74,7 +74,7 @@ GAMETOURNAMENTS.getMatches({game: 'dota-2', page: '2'}).then((res) => {
 
 #### getTournamentsMatches
 
-Parses all matches from the `https://game-tournaments.com/dota-2/${tournament}` page
+Parses all matches from the `https://game-tournaments.com/${game}/${tournament}` page
 
 |   Option   |  Type   | Default Value |                   Description                    |
 | :--------: | :-----: | :-----------: | :----------------------------------------------: |
@@ -88,3 +88,51 @@ GAMETOURNAMENTS.getTournamentsMatches({ game: 'dota-2', tournament: 'esl-one-mal
 ```
 
 tournamentlink for search by tournament stored in Match.event.tournamentLink
+
+#### getMatch
+
+MatchInfo
+
+|     Option     |    Type     | Default Value |        Description        |
+| :------------: | :---------: | :-----------: | :-----------------------: |
+|     team1      | MathDetails |       -       |             -             |
+|     team2      | MathDetails |       -       |             -             |
+| tournamentInfo |   string    |       -       |             -             |
+| tournamentLink |   string    |       -       | fot getTournamentsMatches |
+|      date      |   string    |       -       |             -             |
+|     format     |   string    |       -       |       Best of 2/3/1       |
+
+TeamDetails
+
+|  Option   |   Type    | Default Value |       Description        |
+| :-------: | :-------: | :-----------: | :----------------------: |
+|   name    |  string   |       -       |            -             |
+| imageLink |  string   |       -       |            -             |
+|  players  | Players[] |       -       | The game is on right now |
+|   link    |  string   |       -       |       for getTeam        |
+
+Players
+
+| Option |  Type  | Default Value |  Description  |
+| :----: | :----: | :-----------: | :-----------: |
+|  name  | string |       -       |       -       |
+|  link  | string |       -       | for getPlayer |
+
+Parses info match from the `https://game-tournaments.com/${game}/${matchlink}` page
+
+|  Option   |  Type  | Default Value |              Description              |
+| :-------: | :----: | :-----------: | :-----------------------------------: |
+|   game    | string |       -       | csgo/dota-2/lol/overwatch/hearthstone |
+| matchlink | string |       -       |        Check info by MatchLink        |
+
+```javascript
+GAMETOURNAMENTS.getMatch({
+    game: 'dota-2',
+    matchlink:
+      'moon-studio-asian-tigers-3/group-stage/mist-walker-vs-gorilla-468136'
+  }).then((res) => {
+  ...
+})
+```
+
+matchlink for search by tournament stored in Match.link

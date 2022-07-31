@@ -36,7 +36,7 @@ export { gametournaments as GAMETOURNAMENTS }
 
 export type { GetMatchesArguments } from './endpoints/getMatches'
 export type { GetTournamentsMatchesArguments } from './endpoints/getTournamentsMatches'
-export type { MatchInfo } from './endpoints/getMatch'
+export type { MatchInfo, TeamDetails } from './endpoints/getMatch'
 
 export type { Event } from './shared/Event'
 export type { Game } from './shared/Game'
