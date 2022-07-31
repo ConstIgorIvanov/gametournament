@@ -4,6 +4,7 @@ import { fetchPage } from '../utils'
 import { Game } from '../shared/Game'
 import { MatchPreview } from '../shared/MatchPreview'
 import { replaceGame } from '../utils'
+import { Lang } from '../shared/Lang'
 export interface GetTournamentsMatchesArguments {
   game: Game
   tournament?: string
@@ -17,7 +18,7 @@ export const getTournamentsMatches =
   }: GetTournamentsMatchesArguments): Promise<MatchPreview[]> => {
     const $ = GameTournamentsScraper(
       await fetchPage(
-        `https://game-tournaments.com/${game}/${tournament}`,
+        `https://en.game-tournaments.com/${game}/${tournament}`,
         config.loadPage,
         game
       )

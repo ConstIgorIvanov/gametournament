@@ -5,10 +5,12 @@ import { Game } from '../shared/Game'
 import { Player } from '../shared/Player'
 import { replaceGame } from '../utils'
 import { MatchPreview } from '../shared/MatchPreview'
+import { Lang } from '../shared/Lang'
 
 export interface GetMatchArguments {
   game: Game
   teamlink: string
+  lang?: Lang
 }
 
 export interface TeamInfo {
@@ -30,25 +32,32 @@ export interface TeamInfo {
 
 export const getTeam =
   (config: GameTournamentsConfig) =>
-  async ({ teamlink, game }: GetMatchArguments): Promise<TeamInfo> => {
+  async ({
+    teamlink,
+    game,
+    lang
+  }: GetMatchArguments): Promise<TeamInfo | any> => {
     const $ = GameTournamentsScraper(
       await fetchPage(
-        `https://game-tournaments.com/${game}/${teamlink}`,
+        `https://${lang || ''}game-tournaments.com/${game}/${teamlink}`,
         config.loadPage,
         game
       )
     )
 
-    const name = ''
-    const teamLogo = ''
+    const name = $('.col-sm-4 img').attr('alt')
+    const teamLogo =
+      'https://game-tournaments.com' + $('.col-sm-4 img').attr('src')
 
-    const players = [
-      {
-        name: 'string',
-        link: 'string',
-        role: 'string'
-      }
-    ]
+    const players = $('.nickh2')
+      .toArray()
+      .map((el) => {
+        return {
+          name: el.text().replace(/\s+/g, ''),
+          link: replaceGame(el.attr('href'))
+        }
+      })
+      .slice(0, 5)
 
     const matches = $('tr')
       .toArray()
@@ -83,12 +92,30 @@ export const getTeam =
       .filter((element) => element != null)
 
     const region = {
-      name: 'string',
-      place: 'string'
+      name: $('.row2.teamstat.clearfix .col.col-xs-3')
+        .toArray()
+        .map((el) => el.find('a').text())[1],
+      place: $('.row2.teamstat.clearfix .col.col-xs-3')
+        .toArray()
+        .map((el) => el.find('b').text())[1]
     }
-    const placeinWorld = ''
-    const form = ''
-    const rating = { win: '', percentage: '' }
+    const placeinWorld = $('.row2.teamstat.clearfix .col.col-xs-3')
+      .toArray()
+      .map((el) => el.find('b').text())[0]
+    const form = $('.row2.teamstat.clearfix .col.col-xs-3')
+      .toArray()
+      .map((el) => el.find('b').text())[2]
+    const rating = {
+      win: $('.row2.teamstat.clearfix .col.col-xs-3')
+        .toArray()
+        .map((el) => el.find('b').text())[3]
+        .split(' ')[0],
+
+      percentage: $('.row2.teamstat.clearfix .col.col-xs-3')
+        .toArray()
+        .map((el) => el.find('b').text())[3]
+        .split(' ')[1]
+    }
 
     return {
       name,
