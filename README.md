@@ -12,6 +12,7 @@ Table of contents
 - [API](#api)
   - [getMatches](#getmatches)
   - [getTournamentsMatches](#getTournamentsMatches)
+  - [getMatch](#getMatch)
 
 ## Installation
 
