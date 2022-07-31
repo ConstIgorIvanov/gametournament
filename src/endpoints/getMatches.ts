@@ -4,6 +4,7 @@ import { fetchPage } from '../utils'
 import { Time } from '../shared/Time'
 import { Game } from '../shared/Game'
 import { MatchPreview } from '../shared/MatchPreview'
+import { replaceGame } from '../utils'
 export interface GetMatchesArguments {
   game: Game
   time?: Time
@@ -39,14 +40,7 @@ export const getMatches =
           const live = date ? false : true
           const event = {
             name: el.find('.ta.odtip').attr('title'),
-            tournamentLink: el
-              .find('.ta.odtip')
-              .attr('href')
-              .replace('/dota-2/', '')
-              .replace('/csgo/', '')
-              .replace('/hearthstone/', '')
-              .replace('/lol/', '')
-              .replace('/overwatch/', ''),
+            tournamentLink: replaceGame(el.find('.ta.odtip').attr('href')),
             logo:
               'https://game-tournaments.com' +
               el.find('.tournament-icon img').attr('src')
@@ -59,14 +53,7 @@ export const getMatches =
             name: el.find('span .teamname.c2 b').text(),
             odds: el.find('.bet-percentage.bet2').text()
           }
-          let link = el
-            .find('.mlink')
-            .attr('href')
-            .replace('/dota-2/', '')
-            .replace('/csgo/', '')
-            .replace('/hearthstone/', '')
-            .replace('/lol/', '')
-            .replace('/overwatch/', '')
+          let link = replaceGame(el.find('.mlink').attr('href'))
           let score = el.find('.mbutton.tresult').attr('data-score')
           return { id, live, date, game, event, team1, team2, link, score }
         } else {
