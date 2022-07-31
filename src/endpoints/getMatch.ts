@@ -2,7 +2,7 @@ import { GameTournamentsConfig } from '../config'
 import { GameTournamentsScraper } from '../scraper'
 import { fetchPage } from '../utils'
 import { Game } from '../shared/Game'
-import { Players } from '../shared/Players'
+import { Player } from '../shared/Player'
 import { replaceGame } from '../utils'
 export interface GetMatchArguments {
   game: Game
@@ -13,7 +13,7 @@ export interface GetMatchArguments {
 export interface TeamDetails {
   name: string
   imageLink: string
-  players: Players[]
+  players: Player[]
   link: string
 }
 export interface MatchInfo {
@@ -27,7 +27,7 @@ export interface MatchInfo {
 
 export const getMatch =
   (config: GameTournamentsConfig) =>
-  async ({ matchlink, game }: GetMatchArguments): Promise<MatchInfo | any> => {
+  async ({ matchlink, game }: GetMatchArguments): Promise<MatchInfo> => {
     const $ = GameTournamentsScraper(
       await fetchPage(
         `https://game-tournaments.com/${game}/${matchlink}`,

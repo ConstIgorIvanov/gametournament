@@ -13,6 +13,7 @@ Table of contents
   - [getMatches](#getmatches)
   - [getTournamentsMatches](#getTournamentsMatches)
   - [getMatch](#getMatch)
+  - [getTeam](#getTeam)
 
 ## Installation
 
@@ -105,19 +106,20 @@ MatchInfo
 
 TeamDetails
 
-|  Option   |   Type    | Default Value |       Description        |
-| :-------: | :-------: | :-----------: | :----------------------: |
-|   name    |  string   |       -       |            -             |
-| imageLink |  string   |       -       |            -             |
-|  players  | Players[] |       -       | The game is on right now |
-|   link    |  string   |       -       |       for getTeam        |
+|  Option   |   Type   | Default Value |       Description        |
+| :-------: | :------: | :-----------: | :----------------------: |
+|   name    |  string  |       -       |            -             |
+| imageLink |  string  |       -       |            -             |
+|  players  | Player[] |       -       | The game is on right now |
+|   link    |  string  |       -       |       for getTeam        |
 
-Players
+Player
 
-| Option |  Type  | Default Value |  Description  |
-| :----: | :----: | :-----------: | :-----------: |
-|  name  | string |       -       |       -       |
-|  link  | string |       -       | for getPlayer |
+| Option |  Type   | Default Value |  Description  |
+| :----: | :-----: | :-----------: | :-----------: |
+|  name  | string  |       -       |       -       |
+|  link  | string  |       -       | for getPlayer |
+|  role  | string? |       -       |       -       |
 
 Parses info match from the `https://game-tournaments.com/${game}/${matchlink}` page
 
@@ -137,3 +139,5 @@ GAMETOURNAMENTS.getMatch({
 ```
 
 matchlink for search by tournament stored in Match.link
+
+#### getTeam
